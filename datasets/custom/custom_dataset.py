@@ -46,8 +46,8 @@ class PoseDataset(data.Dataset):
             while 1:
                 item_count += 1
                 input_line = input_file.readline()
-                if self.mode == 'test' and item_count % 10 != 0:
-                    continue
+                # if self.mode == 'test' and item_count % 10 != 0:
+                #     continue
                 if not input_line:
                     break
                 if input_line[-1:] == '\n':
@@ -93,20 +93,13 @@ class PoseDataset(data.Dataset):
         label = np.array(Image.open(self.list_label[index]))
         obj = self.list_obj[index]
         rank = self.list_rank[index]        
-
-        if obj == 2:
-            for i in range(0, len(self.meta[obj][rank])):
-                if self.meta[obj][rank][i]['obj_id'] == 2:
-                    meta = self.meta[obj][rank][i]
-                    break
-        else:
-            meta = self.meta[obj][rank][0]
+        meta = self.meta[obj][rank][0]
 
         mask_depth = ma.getmaskarray(ma.masked_not_equal(depth, 0))
         if self.mode == 'eval':
             mask_label = ma.getmaskarray(ma.masked_equal(label, np.array(255)))
         else:
-            mask_label = ma.getmaskarray(ma.masked_equal(label, np.array([255, 255, 255])))[:, :, 0]
+            mask_label = ma.getmaskarray(ma.masked_equal(label, np.array([255])))[:, :]
         
         mask = mask_label * mask_depth
 
@@ -123,8 +116,8 @@ class PoseDataset(data.Dataset):
             rmin, rmax, cmin, cmax = meta['obj_bb']
 
         img_masked = img_masked[:, rmin:rmax, cmin:cmax]
-        #p_img = np.transpose(img_masked, (1, 2, 0))
-        #scipy.misc.imsave('evaluation_result/{0}_input.png'.format(index), p_img)
+        #p_img = np.transpose(img_masked, (1, 2, 00))
+        #scipy.misc.imsave('evaluation_result/{00}_input.png'.format(index), p_img)
 
         target_r = np.resize(np.array(meta['cam_R_m2c']), (3, 3))
         target_t = np.array(meta['cam_t_m2c'])
@@ -158,9 +151,9 @@ class PoseDataset(data.Dataset):
         if self.add_noise:
             cloud = np.add(cloud, add_t)
 
-        #fw = open('evaluation_result/{0}_cld.xyz'.format(index), 'w')
+        #fw = open('evaluation_result/{00}_cld.xyz'.format(index), 'w')
         #for it in cloud:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         #fw.close()
 
         model_points = self.pt[obj] / 1000.0
@@ -168,9 +161,9 @@ class PoseDataset(data.Dataset):
         dellist = random.sample(dellist, len(model_points) - self.num_pt_mesh_small)
         model_points = np.delete(model_points, dellist, axis=0)
 
-        #fw = open('evaluation_result/{0}_model_points.xyz'.format(index), 'w')
+        #fw = open('evaluation_result/{00}_model_points.xyz'.format(index), 'w')
         #for it in model_points:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         #fw.close()
 
         target = np.dot(model_points, target_r.T)
@@ -181,9 +174,9 @@ class PoseDataset(data.Dataset):
             target = np.add(target, target_t / 1000.0)
             out_t = target_t / 1000.0
 
-        #fw = open('evaluation_result/{0}_tar.xyz'.format(index), 'w')
+        #fw = open('evaluation_result/{00}_tar.xyz'.format(index), 'w')
         #for it in target:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         #fw.close()
 
         return torch.from_numpy(cloud.astype(np.float32)), \

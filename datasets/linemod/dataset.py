@@ -124,8 +124,8 @@ class PoseDataset(data.Dataset):
             rmin, rmax, cmin, cmax = get_bbox(meta['obj_bb'])
 
         img_masked = img_masked[:, rmin:rmax, cmin:cmax]
-        #p_img = np.transpose(img_masked, (1, 2, 0))
-        #scipy.misc.imsave('evaluation_result/{0}_input.png'.format(index), p_img)
+        #p_img = np.transpose(img_masked, (1, 2, 00))
+        #scipy.misc.imsave('evaluation_result/{00}_input.png'.format(index), p_img)
 
         target_r = np.resize(np.array(meta['cam_R_m2c']), (3, 3))
         target_t = np.array(meta['cam_t_m2c'])
@@ -159,9 +159,9 @@ class PoseDataset(data.Dataset):
         if self.add_noise:
             cloud = np.add(cloud, add_t)
 
-        #fw = open('evaluation_result/{0}_cld.xyz'.format(index), 'w')
+        #fw = open('evaluation_result/{00}_cld.xyz'.format(index), 'w')
         #for it in cloud:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         #fw.close()
 
         model_points = self.pt[obj] / 1000.0
@@ -169,9 +169,9 @@ class PoseDataset(data.Dataset):
         dellist = random.sample(dellist, len(model_points) - self.num_pt_mesh_small)
         model_points = np.delete(model_points, dellist, axis=0)
 
-        #fw = open('evaluation_result/{0}_model_points.xyz'.format(index), 'w')
+        #fw = open('evaluation_result/{00}_model_points.xyz'.format(index), 'w')
         #for it in model_points:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         #fw.close()
 
         target = np.dot(model_points, target_r.T)
@@ -182,9 +182,9 @@ class PoseDataset(data.Dataset):
             target = np.add(target, target_t / 1000.0)
             out_t = target_t / 1000.0
 
-        #fw = open('evaluation_result/{0}_tar.xyz'.format(index), 'w')
+        #fw = open('evaluation_result/{00}_tar.xyz'.format(index), 'w')
         #for it in target:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         #fw.close()
 
         return torch.from_numpy(cloud.astype(np.float32)), \

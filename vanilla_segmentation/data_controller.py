@@ -64,8 +64,8 @@ class SegDataset(data.Dataset):
             rgb = back * mask + rgb
             label = back_label * mask + label
             rgb = np.transpose(rgb, (1, 2, 0))
-            #scipy.misc.imsave('embedding_final/rgb_{0}.png'.format(index), rgb)
-            #scipy.misc.imsave('embedding_final/label_{0}.png'.format(index), label)
+            #scipy.misc.imsave('embedding_final/rgb_{00}.png'.format(index), rgb)
+            #scipy.misc.imsave('embedding_final/label_{00}.png'.format(index), label)
             
         if self.use_noise:
             choice = random.randint(0, 3)

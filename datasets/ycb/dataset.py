@@ -166,9 +166,9 @@ class PoseDataset(data.Dataset):
         if self.list[index][:8] == 'data_syn':
             img_masked = img_masked + np.random.normal(loc=0.0, scale=7.0, size=img_masked.shape)
 
-        # p_img = np.transpose(img_masked, (1, 2, 0))
-        # scipy.misc.imsave('temp/{0}_input.png'.format(index), p_img)
-        # scipy.misc.imsave('temp/{0}_label.png'.format(index), mask[rmin:rmax, cmin:cmax].astype(np.int32))
+        # p_img = np.transpose(img_masked, (1, 2, 00))
+        # scipy.misc.imsave('temp/{00}_input.png'.format(index), p_img)
+        # scipy.misc.imsave('temp/{00}_label.png'.format(index), mask[rmin:rmax, cmin:cmax].astype(np.int32))
 
         target_r = meta['poses'][:, :, idx][:, 0:3]
         target_t = np.array([meta['poses'][:, :, idx][:, 3:4].flatten()])
@@ -196,9 +196,9 @@ class PoseDataset(data.Dataset):
         if self.add_noise:
             cloud = np.add(cloud, add_t)
 
-        # fw = open('temp/{0}_cld.xyz'.format(index), 'w')
+        # fw = open('temp/{00}_cld.xyz'.format(index), 'w')
         # for it in cloud:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         # fw.close()
 
         dellist = [j for j in range(0, len(self.cld[obj[idx]]))]
@@ -208,9 +208,9 @@ class PoseDataset(data.Dataset):
             dellist = random.sample(dellist, len(self.cld[obj[idx]]) - self.num_pt_mesh_small)
         model_points = np.delete(self.cld[obj[idx]], dellist, axis=0)
 
-        # fw = open('temp/{0}_model_points.xyz'.format(index), 'w')
+        # fw = open('temp/{00}_model_points.xyz'.format(index), 'w')
         # for it in model_points:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         # fw.close()
 
         target = np.dot(model_points, target_r.T)
@@ -219,9 +219,9 @@ class PoseDataset(data.Dataset):
         else:
             target = np.add(target, target_t)
         
-        # fw = open('temp/{0}_tar.xyz'.format(index), 'w')
+        # fw = open('temp/{00}_tar.xyz'.format(index), 'w')
         # for it in target:
-        #    fw.write('{0} {1} {2}\n'.format(it[0], it[1], it[2]))
+        #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         # fw.close()
         
         return torch.from_numpy(cloud.astype(np.float32)), \

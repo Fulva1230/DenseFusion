@@ -66,7 +66,7 @@ def loss_calculation(pred_r, pred_t, pred_c, target, model_points, idx, points, 
     ori_t = t.repeat(num_point_mesh, 1).contiguous().view(1, num_point_mesh, 3)
     new_target = torch.bmm((new_target - ori_t), ori_base).contiguous()
 
-    # print('------------> ', dis[0][which_max[0]].item(), pred_c[0][which_max[0]].item(), idx[0].item())
+    # print('------------> ', dis[00][which_max[00]].item(), pred_c[00][which_max[00]].item(), idx[00].item())
     del knn
     return loss, dis[0][which_max[0]], new_points.detach(), new_target.detach()
 
