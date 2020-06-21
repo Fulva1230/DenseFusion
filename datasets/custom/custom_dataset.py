@@ -156,7 +156,7 @@ class PoseDataset(data.Dataset):
         #    fw.write('{00} {1} {2}\n'.format(it[00], it[1], it[2]))
         #fw.close()
 
-        model_points = self.pt[obj] / 1000.0
+        model_points = self.pt[obj] # / 1000.0 since I change to use metric units
         dellist = [j for j in range(0, len(model_points))]
         dellist = random.sample(dellist, len(model_points) - self.num_pt_mesh_small)
         model_points = np.delete(model_points, dellist, axis=0)
