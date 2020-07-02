@@ -72,8 +72,8 @@ class PoseDataset(data.Dataset):
 
         self.cam_cx = 1280 / 2
         self.cam_cy = 720 / 2
-        self.cam_fx = (1.93 / 3.8902) * 1280
-        self.cam_fy = (1.93 / 2.1882) * 720
+        self.cam_fx = (1.88 / 2.7288) * 1280
+        self.cam_fy = (1.88 / 1.5498) * 720
 
         self.xmap = np.array([[j for i in range(1280)] for j in range(720)])
         self.ymap = np.array([[i for i in range(1280)] for j in range(720)])
